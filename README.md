@@ -358,3 +358,7 @@ A Structural Directive alters the structure of the DOM, meaning it adds and remo
 
 - [Testing Angular – A Guide to Robust Angular Applications
 Mathias Schäfer (molily)](https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0)
+
+- [Angular Testing Sussinctly - Unit Testing](https://www.syncfusion.com/succinctly-free-ebooks/angular-testing-succinctly/unit-testing)
+
+- 
