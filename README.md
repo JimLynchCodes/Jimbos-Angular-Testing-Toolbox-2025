@@ -267,6 +267,92 @@ The tool _pa11y_ is nice for testing accessibiliity of forms.
 
 <br/>
 
+## Using Spectator
+
+[Spectator](https://github.com/ngneat/spectator) is an opinionated library for testing Angular applications. Technically, it sits on top of TestBed, ComponentFixture and DebugElement. But the main idea is to unify all these APIs in one consistent, powerful and user-friendly interface – the Spectator object.
+Spectator simplifies testing Components, Services, Directives, Pipes, routing and HTTP communication. Spectator’s strength are Component tests with Inputs, Outputs, children, event handling, Service dependencies and more.
+
+<br/>
+
+## Testing Services
+
+- Writing tests for Services with internal state
+- Testing Observables returned by Services
+- Verifying HTTP requests and payload processing
+- Covering HTTP success and error cases
+
+In an Angular application, Services are responsible for fetching, storing and processing data. Services are singletons, meaning there is only one instance of a Service during runtime. They are fit for central data storage, HTTP and WebSocket communication as well as data validation.
+
+The single Service instance is shared among Components and other application parts. Therefore, a Service is used when Components that are not parent and child need to communicate with each other and exchange data.
+
+<br/>
+
+## Common Service Tests
+
+So what does a Service do and how do we test it? Services are diverse, but some patterns are widespread.
+
+- Services can have public methods that return values.
+In the test, we check whether a method returns correct data.
+
+- Services can store data. They hold an internal state. We can get or set the state.
+In the test, we check whether the state is changed correctly. Since the state should be held in private properties, we cannot access the state directly. We test the state change by calling public methods. We should not peek into the black box.
+
+- Services can interact with dependencies. These are often other Services. For example, a Service might send HTTP requests via Angular’s HttpClient.
+In the unit test, we replace the dependency with a fake that returns canned responses.
+
+<br/>
+
+## Testing a Service that sends HTTP requests
+
+We have used the HttpClientTestingModule for testing a Service that depends on HttpClient
+
+<br/>
+
+## Pipe Test Example
+
+Let us study the structure of a Pipe first to find ways to test it. In essence, a Pipe is class with a public transform method. Here is a simple Pipe that expects a name and greets the user.
+```
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({ name: 'greet' })
+export class GreetPipe implements PipeTransform {
+  transform(name: string): string {
+    return `Hello, ${name}!`;
+  }
+}
+```
+In a Component template, we transform a value using the Pipe:
+`{{ 'Julie' | greet }}`
+
+The GreetPipe take the string 'Julie' and computes a new string, 'Hello, Julie!'.
+
+```
+“describe('GreetPipe', () => {
+  let greetPipe: GreetPipe;
+
+  beforeEach(() => {
+    greetPipe = new GreetPipe();
+  });
+
+  it('says Hello', () => {
+    expect(greetPipe.transform('Julie')).toBe('Hello, Julie!');
+  });
+});
+```
+
+<br/>
+
+## Testing Attribute Directives
+
+An Attribute Directive adds logic to an existing host element in the DOM. Examples for built-in Attribute Directives are NgClass and NgStyle.
+
+<br/>
+
+## Testing Structural Directives
+
+A Structural Directive alters the structure of the DOM, meaning it adds and removes elements programmatically. Examples for built-in Structural Directives are NgIf, NgFor and NgSwitch.
+
+<br/>
 
 # Resources
 
