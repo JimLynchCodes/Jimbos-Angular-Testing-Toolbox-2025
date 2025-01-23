@@ -184,7 +184,30 @@ fixture.detectChanges();
 
 <br/>
 
+## Testing Component Inputs
 
+Don't forget that you need to manually call `ngOnChanges` in unit tests!
+
+```
+describe('CounterComponent', () => {
+  let component: CounterComponent;
+  let fixture: ComponentFixture<CounterComponent>;
+
+  const startCount = 123;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [CounterComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(CounterComponent);
+    component = fixture.componentInstance;
+    component.startCount = startCount;
+    // Call ngOnChanges, then re-render
+    component.ngOnChanges();
+    fixture.detectChanges();
+  });
+```
 
 # Resources
 
