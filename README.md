@@ -209,6 +209,65 @@ describe('CounterComponent', () => {
   });
 ```
 
+## Presentational Components
+Low-level Components that render plain HTML elements but no child Components are called ___presentational components___.
+
+- They directly render what the user sees and interacts with.
+- They are often highly generic and reusable.
+- They are controlled through Inputs and report back using Outputs.
+- They have little to none dependencies.
+- They are easy to reason about and therefore easy to test.
+- The preferred way of testing them is a unit test.
+
+These Components are called presentational Components since they directly present a part of the user interface using HTML and CSS. Presentational Components need to be combined and wired to form a working user interface.
+
+
+## Container Components
+This is the duty of container Components. These high-level Components bring multiple low-level Components together. They pull data from different sources, like Services and state managers, and distribute it to their children.
+
+Container Components have several types of dependencies. They depend on the nested child Components, but also Injectables. These are classes, functions, objects, etc. provided via dependency injection, like Services. These dependencies make testing container Components complicated.
+
+## Shallow vs. deep rendering
+
+There are two fundamental ways to test Components with children:
+
+A unit test using shallow rendering. The child Components are not rendered.
+An integration test using deep rendering. The child Components are rendered.
+
+Each works better in different situations.
+
+tldr - Shallow rendering is good for testing _container components_.
+
+<br/>
+
+## Faking Services
+
+With dependency injection, we can easily provide a fake service to a component or even a fake service as a dependency of another service.
+
+Faking guidelines:
+
+There are two guidelines that may help you:
+
+1) Is the test valuable?
+2) Does it cover the important interaction between Component and Service?
+
+Decide whether to test the interaction superficially or in-depth.
+
+Whichever approach you choose, make sure to meet the basic requirements:
+
+- Equivalence of fake and original: The fake must have a type derived from the original.
+
+- Effective faking: the original stays untouched.”
+
+<br/>
+
+## Form Accessibility with pa11y
+
+The tool _pa11y_ is nice for testing accessibiliity of forms.
+
+<br/>
+
+
 # Resources
 
 - [Testing Angular – A Guide to Robust Angular Applications
