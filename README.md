@@ -86,6 +86,16 @@ ng test --code-coverage
 
 <br/>
 
+## Thinking About Code Coverage
+
+Test coverage should not be a pointless competition that puts developers under pressure and shames those that do not meet an arbitrary mark. Measuring coverage is a tool you should use for your benefit. Keep in mind that writing meaningful, spot-on tests does not necessarily increase the coverage score.
+
+For beginners and experts alike, the coverage report helps to set up, debug and improve their tests. For experienced developers, the score helps to keep up a steady testing practice.
+
+Code coverage shows you _where you are clearly missing unit tests,_ but it does not necessarily mean your assertions are good!
+
+<br/>
+
 # Structure of a Test (The Three A's)
 
 We can craft well-made unit tests my covering the 3 A's in each test: Arrange, Act, and Assert.
@@ -354,11 +364,65 @@ A Structural Directive alters the structure of the DOM, meaning it adds and remo
 
 <br/>
 
+# Strengths of end-to-end tests
+
+As discussed in distribution of testing efforts, all types of automated tests have pros and cons. Unit and integration tests are fast and reliable, but do not guarantee a working application. End-to-end test are slow and often fail incorrectly, but they assess the fitness of the application as a whole.
+
+<br/>
+
+# Deterministic Environment
+The database needs to be filled with pre-fabricated fake data. With each run of the end-to-end tests, you need to reset the database to a defined initial state.
+The back-end services need to answer requests with deterministic responses. Third-party dependencies need to be set up so they return realistic data but do not compromise production data.
+
+<br/>
+
+# Common E2e Test Webdriver Commands
+
+- Navigate to a given URL
+- Find one or more elements in the DOM
+- Get information about a found element:
+  - Get an element attribute or property
+  - Get the element’s text content
+- Click on an element
+- Send keyboard input to a form field
+- Execute arbitrary JavaScript code
+
+<br/>
+
+# Cypress
+
+Since Angular v12 Protractor has been deprecated, and many devs recommend using Cypress for e2e testing of today's Angular applications.
+
+Can be easily installed to an Angular project with the cypress schematic:
+```
+ng add @cypress/schematic
+```
+
+Example cypress test:
+```
+describe('Counter', () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
+
+  it('has the correct title', () => {
+    cy.title().should('equal', 'Angular Workshop: Counters');
+  });
+});
+```
+
+# Page Objects
+
+A nice pattern for reducing duplication of "DOM element finding code" with higher level abstractions.
+
+<br/>
+
+<br/>
+
 # Resources
 
 - [Testing Angular – A Guide to Robust Angular Applications
 Mathias Schäfer (molily)](https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0)
 
-- [Angular Testing Sussinctly - Unit Testing](https://www.syncfusion.com/succinctly-free-ebooks/angular-testing-succinctly/unit-testing)
+- [Angular Testing Succinctly - Unit Testing](https://www.syncfusion.com/succinctly-free-ebooks/angular-testing-succinctly/unit-testing)
 
-- 
